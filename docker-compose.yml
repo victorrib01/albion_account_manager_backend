@@ -1,0 +1,40 @@
+version: "3.8"
+
+services: 
+  app:
+    container_name: 'albion-manager-api'
+    image: albion-manager
+    # image: node:11
+    # command: sh -c "yarn run serve"
+    ports:
+      - 4002:4000
+    # working_dir: /app
+    # volumes: 
+    #   - ./:/app
+    environment:
+      HOST: db
+      PORT: 5432
+      DIR: build
+      EXT: js
+      USER: victorrib01
+      PASS: password123
+      DB: albion-manager
+      
+  database:
+    container_name: 'albion-manager-db'
+    image: postgres
+    env_file:
+      - database.env
+    ports:
+      - 5432:5432
+    restart: always
+    links:
+      - app
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: victorrib01
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: albion-manager
+volumes:
+  database-data:
