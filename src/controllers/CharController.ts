@@ -10,7 +10,11 @@ export default {
         const { id } = req.params;
         const charsRepository = getRepository(Char);
 
-        const chars = await charsRepository.findOneOrFail(id)
+        const chars = await charsRepository.findOneOrFail(id, {
+            relations: [
+                'island'
+            ]
+        })
 
         return res.json(chars);
     },

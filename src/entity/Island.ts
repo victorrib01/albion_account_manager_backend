@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, OneToOne } from "typeorm";
+import Building from "./Building";
 import Char from "./Char";
-
 
 @Entity('islands')
 export default class Island {
@@ -17,6 +17,12 @@ export default class Island {
     active: boolean
 
     @OneToOne(() => Char, char => char.island)
-    @JoinColumn({name: 'island_id'})
+    @JoinColumn({name: 'char_id'})
     char: Char
+
+    @OneToMany(() => Building, b => b.island, {
+        cascade: ['insert', 'update']
+    })
+    @JoinColumn({name: 'building_id'})
+    buildings: Building[]
 }

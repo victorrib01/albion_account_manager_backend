@@ -20,8 +20,7 @@ export default class Char {
     @Column()
     silver: number
 
-    @OneToOne(() => Island, island => island.char)
-    @JoinColumn({name: 'island_id'})
+    @OneToOne(() => Island, i => i.char)
     island: Island
 
     @ManyToOne(() => Account, account => account.chars)
