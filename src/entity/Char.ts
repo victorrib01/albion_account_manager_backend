@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, OneToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import Account from "./Account";
 import Island from "./Island";
 
@@ -24,6 +24,6 @@ export default class Char {
     island: Island
 
     @ManyToOne(() => Account, account => account.chars)
-    @JoinColumn({name: 'char_id'})
+    @JoinColumn({name: 'account_id'})
     account: Account;
 }

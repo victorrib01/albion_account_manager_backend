@@ -1,8 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, OneToOne } from "typeorm";
-import Building from "./Building";
-import Char from "./Char";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, ManyToMany } from "typeorm";
 import Construction from "./Construction";
-
+import DailyCost from "./DailyCost";
 
 @Entity('products')
 export default class Product {
@@ -11,15 +9,17 @@ export default class Product {
 
     @Column()
     name: string
+    
+    @Column()
+    est_value: number
 
     @Column()
     tier: number
-
-    @Column()
-    est_value: number
 
     @ManyToOne(() => Construction, c => c.products)
     @JoinColumn({name: 'construction_id'})
     construction: Construction
 
+    @ManyToMany(() => DailyCost, dc => dc.products)
+    daily_costs: DailyCost[]
 }

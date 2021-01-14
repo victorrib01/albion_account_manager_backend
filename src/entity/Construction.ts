@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, OneToOne } from "typeorm";
-import Building from "./Building";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import BuildingType from "./BuildingType";
+import DailyEarning from "./DailyEarning";
 import Product from "./Product";
-
+import Island from "./Island";
 
 @Entity('constructions')
 export default class Construction {
@@ -14,16 +15,18 @@ export default class Construction {
     @Column()
     tier: number
 
-    @Column()
-    est_earnings: number
-
-    @OneToMany(() => Product, p => p.construction, {
-        cascade: ['insert', 'update']
-    })
-    @JoinColumn({name: 'product_id'})
+    @OneToMany(() => Product, p => p.construction,)
     products: Product[]
 
-    @OneToOne(() => Building, b => b.construction)
-    @JoinColumn({name: 'construction_id'})
-    building: Building
+    @OneToMany(() => DailyEarning, dE => dE.construction, {
+        cascade: ['insert', 'update','remove']
+    })
+    daily_earnings: DailyEarning[]
+
+    @ManyToOne(() => BuildingType, b => b.constructions)
+    @JoinColumn({name: 'building_id'})
+    type: BuildingType
+
+    @ManyToOne(()=> Island, island => island.constructions)
+    island: Island
 }

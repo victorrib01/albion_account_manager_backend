@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import Char from "./Char";
-
 
 @Entity('accounts')
 export default class Account {
@@ -16,6 +15,5 @@ export default class Account {
     @OneToMany(() => Char, char => char.account, {
         cascade: ['insert', 'update']
     })
-    @JoinColumn({name: 'char_id'})
     chars: Char[]
 }
