@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import Construction from '../entity/Construction';
 
 import { getRepository } from 'typeorm';
-import Building from '../entity/Building';
+import BuildingType from '../entity/BuildingType';
+import Island from '../entity/Island';
 
 export default {
 
@@ -10,7 +11,15 @@ export default {
         const { id } = req.params;
         const constructionsRepository = getRepository(Construction);
 
-        const construction = await constructionsRepository.findOneOrFail(id)
+        const construction = await constructionsRepository.findOneOrFail(id, {
+            relations: [
+                'products',
+                'daily_earnings',
+                'type',
+                'island',
+                'island.char',
+            ]
+        })
 
         return res.json(construction);
     },
@@ -18,7 +27,15 @@ export default {
     async index(req: Request, res: Response) {
         const constructionsRepository = getRepository(Construction);
 
-        const constructions = await constructionsRepository.find()
+        const constructions = await constructionsRepository.find({
+            relations: [
+                'products',
+                'daily_earnings',
+                'type',
+                'island',
+                'island.char',
+            ]
+        })
 
         return res.json(constructions);
     },
@@ -27,20 +44,23 @@ export default {
         const {
             name,
             tier,
-            est_earnings,
-            building_id
+            building_id,
+            island_id
         } = req.body
 
         const constructionsRepository = getRepository(Construction);
-        const buildingsRepository = getRepository(Building);
 
-        const building = await buildingsRepository.findOneOrFail(building_id);
+        const buildingsRepository = getRepository(BuildingType);
+        const type = await buildingsRepository.findOneOrFail(building_id);
+
+        const islandRepository = getRepository(Island);
+        const island = await islandRepository.findOneOrFail(island_id)
 
         const data = {
             name,
             tier,
-            est_earnings,
-            building
+            type,
+            island
         }
 
         const construction = constructionsRepository.create(data);

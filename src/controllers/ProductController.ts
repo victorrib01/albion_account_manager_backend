@@ -10,7 +10,11 @@ export default {
         const { id } = req.params;
         const productsRepository = getRepository(Product);
 
-        const products = await productsRepository.findOneOrFail(id)
+        const products = await productsRepository.findOneOrFail(id, {
+            relations: [
+                'construction'
+            ]
+        })
 
         return res.json(products);
     },
@@ -18,7 +22,11 @@ export default {
     async index(req: Request, res: Response) {
         const productsRepository = getRepository(Product);
 
-        const products = await productsRepository.find()
+        const products = await productsRepository.find({
+            relations: [
+                'construction'
+            ]
+        })
 
         return res.json(products);
     },
@@ -26,8 +34,8 @@ export default {
     async create(req: Request, res: Response) {
         const {
             name,
-            tier,
             est_value,
+            tier,
             construction_id
         } = req.body
 
@@ -38,8 +46,8 @@ export default {
 
         const data = {
             name,
-            tier,
             est_value,
+            tier,
             construction
         }
 

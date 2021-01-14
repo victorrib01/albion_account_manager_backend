@@ -12,7 +12,8 @@ export default {
 
         const chars = await charsRepository.findOneOrFail(id, {
             relations: [
-                'island'
+                'island',
+                'account'
             ]
         })
 

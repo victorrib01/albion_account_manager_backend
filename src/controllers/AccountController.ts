@@ -9,7 +9,9 @@ export default {
         const { id } = req.params;
         const accountsRepository = getRepository(Account);
 
-        const accounts = await accountsRepository.findOneOrFail(id)
+        const accounts = await accountsRepository.findOneOrFail(id, {
+            relations: ['chars']
+        })
 
         return res.json(accounts);
     },

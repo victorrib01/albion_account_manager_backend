@@ -1,8 +1,11 @@
 import { Request, Response } from 'express';
+import { getRepository } from 'typeorm';
+
 import Island from '../entity/Island';
 
-import { getRepository } from 'typeorm';
 import Char from '../entity/Char';
+import IslandType from '../entity/IslandType';
+import Location from '../entity/Location'
 
 export default {
 
@@ -11,7 +14,12 @@ export default {
         const islandsRepository = getRepository(Island);
 
         const islands = await islandsRepository.findOneOrFail(id, {
-            relations: ['char']
+            relations: [
+                'char',
+                'daily_earnings',
+                'buildings',
+                'type'
+            ]
         })
 
         return res.json(islands);
@@ -21,7 +29,14 @@ export default {
         const islandsRepository = getRepository(Island);
 
         const islands = await islandsRepository.find({
-            relations: ['char']
+            relations: [
+                'daily_earnings',
+                'daily_costs',
+                'constructions',
+                'type',
+                'location',
+                'char',
+            ]
         })
 
         return res.json(islands);
@@ -30,22 +45,30 @@ export default {
     async create(req: Request, res: Response) {
         const {
             level,
-            daily_earnings,
             active,
-            char_id
+            island_type_id,
+            char_id,
+            location_id,
         } = req.body
 
         const islandsRepository = getRepository(Island);
+        
+        const islandTypeRepository = getRepository(IslandType);
+        const type = await islandTypeRepository.findOneOrFail(island_type_id)
+        
+        const locationsRepository = getRepository(Location)
+        const location = await locationsRepository.findOneOrFail(location_id)
 
         const charsRepository = getRepository(Char)
-
         const char = await charsRepository.findOneOrFail(char_id)
+
 
         const data = {
             level,
-            daily_earnings,
             active,
-            char
+            type,
+            location,
+            char,
         }
 
         const island = islandsRepository.create(data);

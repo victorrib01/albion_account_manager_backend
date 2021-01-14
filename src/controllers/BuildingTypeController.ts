@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import Building from '../entity/Building';
+import Building from '../entity/BuildingType';
 
 import { getRepository } from 'typeorm';
-import Island from '../entity/Island';
 
 export default {
 
@@ -10,7 +9,9 @@ export default {
         const { id } = req.params;
         const buildingsRepository = getRepository(Building);
 
-        const buildings = await buildingsRepository.findOneOrFail(id)
+        const buildings = await buildingsRepository.findOneOrFail(id, {
+            relations: ['constructions']
+        })
 
         return res.json(buildings);
     },
@@ -19,7 +20,7 @@ export default {
         const buildingsRepository = getRepository(Building);
 
         const buildings = await buildingsRepository.find({
-            relations: ['island', 'island.char']
+            relations: ['constructions']
         })
 
         return res.json(buildings);
@@ -27,22 +28,13 @@ export default {
 
     async create(req: Request, res: Response) {
         const {
-            name,
-            tier,
-            daily_earnings,
-            island_id
+            name
         } = req.body
 
         const buildingsRepository = getRepository(Building);
-        const islandsRepository = getRepository(Island);
-
-        const island = await islandsRepository.findOneOrFail(island_id)
 
         const data = {
-            name,
-            tier,
-            daily_earnings,
-            island
+            name
         }
 
         const building = buildingsRepository.create(data);
