@@ -10,6 +10,10 @@ import IslandController from './controllers/IslandController'
 import IslandTypesController from './controllers/IslandTypeController'
 import LocationController from './controllers/LocationController'
 import ProductController from './controllers/ProductController'
+import AuthController from './controllers/AuthController'
+import UserController from './controllers/UserController'
+
+import authMiddleware from './middlewares/authMiddleware'
 
 const routes = Router()
 
@@ -84,5 +88,13 @@ routes.post('/products', ProductController.create);
 routes.get('/products/:id', ProductController.show);
 routes.put('/products/:id', ProductController.update);
 routes.delete('/products/:id', ProductController.delete);
+
+// User routes
+routes.post('/users', UserController.create)
+routes.get('/users', authMiddleware, UserController.getUserId)
+
+// Auth routes
+routes.post('/auth', AuthController.authenticate);
+
 
 export default routes

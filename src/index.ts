@@ -19,4 +19,4 @@ app.get('/', (req, res) => {
     return res.send('Ta fundando')
 })
 
-app.listen(4000, () => console.log('Server is up'))
+app.listen(4000, () => console.log('Server is up at port: 4000'))
