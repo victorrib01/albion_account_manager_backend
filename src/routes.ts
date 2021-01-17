@@ -18,76 +18,76 @@ import authMiddleware from './middlewares/authMiddleware'
 const routes = Router()
 
 // Account routes
-routes.get('/accounts', AccountController.index);
-routes.get('/accounts/:id', AccountController.show);
-routes.post('/accounts', AccountController.create);
-routes.put('/accounts/:id', AccountController.update);
-routes.delete('/accounts/:id', AccountController.delete);
+routes.get('/accounts', authMiddleware, AccountController.index);
+routes.get('/accounts/:id', authMiddleware, AccountController.show);
+routes.post('/accounts', authMiddleware, AccountController.create);
+routes.put('/accounts/:id', authMiddleware, AccountController.update);
+routes.delete('/accounts/:id', authMiddleware, AccountController.delete);
 
 // Building routes
-routes.get('/building_types', BuildingTypeController.index);
-routes.post('/building_types', BuildingTypeController.create);
-routes.get('/building_types/:id', BuildingTypeController.show);
-routes.put('/building_types/:id', BuildingTypeController.update);
-routes.delete('/building_types/:id', BuildingTypeController.delete);
+routes.get('/building_types', authMiddleware, BuildingTypeController.index);
+routes.post('/building_types', authMiddleware, BuildingTypeController.create);
+routes.get('/building_types/:id', authMiddleware, BuildingTypeController.show);
+routes.put('/building_types/:id', authMiddleware, BuildingTypeController.update);
+routes.delete('/building_types/:id', authMiddleware, BuildingTypeController.delete);
 
 // Char routes
-routes.get('/chars', CharController.index);
-routes.post('/chars', CharController.create);
-routes.get('/chars/:id', CharController.show);
-routes.put('/chars/:id', CharController.update);
-routes.delete('/chars/:id', CharController.delete);
+routes.get('/chars', authMiddleware, CharController.index);
+routes.post('/chars', authMiddleware, CharController.create);
+routes.get('/chars/:id', authMiddleware, CharController.show);
+routes.put('/chars/:id', authMiddleware, CharController.update);
+routes.delete('/chars/:id', authMiddleware, CharController.delete);
 
 // Construction routes
-routes.get('/constructions', ConstructionController.index);
-routes.post('/constructions', ConstructionController.create);
-routes.get('/constructions/:id', ConstructionController.show);
-routes.put('/constructions/:id', ConstructionController.update);
-routes.delete('/constructions/:id', ConstructionController.delete);
+routes.get('/constructions', authMiddleware, ConstructionController.index);
+routes.post('/constructions', authMiddleware, ConstructionController.create);
+routes.get('/constructions/:id', authMiddleware, ConstructionController.show);
+routes.put('/constructions/:id', authMiddleware, ConstructionController.update);
+routes.delete('/constructions/:id', authMiddleware, ConstructionController.delete);
 
 // Daily Earnings routes
-routes.get('/daily_earnings/lastearn', DailyEarningController.lastEarn)
-routes.get('/daily_earnings', DailyEarningController.index);
-routes.post('/daily_earnings', DailyEarningController.create);
-routes.get('/daily_earnings/:id', DailyEarningController.show);
-routes.put('/daily_earnings/:id', DailyEarningController.update);
-routes.delete('/daily_earnings/:id', DailyEarningController.delete);
+routes.get('/daily_earnings/lastearn', authMiddleware, DailyEarningController.lastEarn)
+routes.get('/daily_earnings', authMiddleware, DailyEarningController.index);
+routes.post('/daily_earnings', authMiddleware, DailyEarningController.create);
+routes.get('/daily_earnings/:id', authMiddleware, DailyEarningController.show);
+routes.put('/daily_earnings/:id', authMiddleware, DailyEarningController.update);
+routes.delete('/daily_earnings/:id', authMiddleware, DailyEarningController.delete);
 
 // Daily Costs routes
-routes.get('/daily_costs/lastearn', DailyCostController.lastEarn)
-routes.get('/daily_costs', DailyCostController.index);
-routes.post('/daily_costs', DailyCostController.create);
-routes.get('/daily_costs/:id', DailyCostController.show);
-routes.put('/daily_costs/:id', DailyCostController.update);
-routes.delete('/daily_costs/:id', DailyCostController.delete);
+routes.get('/daily_costs/lastearn', authMiddleware, DailyCostController.lastEarn)
+routes.get('/daily_costs', authMiddleware, DailyCostController.index);
+routes.post('/daily_costs', authMiddleware, DailyCostController.create);
+routes.get('/daily_costs/:id', authMiddleware, DailyCostController.show);
+routes.put('/daily_costs/:id', authMiddleware, DailyCostController.update);
+routes.delete('/daily_costs/:id', authMiddleware, DailyCostController.delete);
 
 // Island routes
-routes.get('/islands', IslandController.index);
-routes.post('/islands', IslandController.create);
-routes.get('/islands/:id', IslandController.show);
-routes.put('/islands/:id', IslandController.update);
-routes.delete('/islands/:id', IslandController.delete);
+routes.get('/islands', authMiddleware, IslandController.index);
+routes.post('/islands', authMiddleware, IslandController.create);
+routes.get('/islands/:id', authMiddleware, IslandController.show);
+routes.put('/islands/:id', authMiddleware, IslandController.update);
+routes.delete('/islands/:id', authMiddleware, IslandController.delete);
 
 // Island Types routes
-routes.get('/island_types', IslandTypesController.index);
-routes.post('/island_types', IslandTypesController.create);
-routes.get('/island_types/:id', IslandTypesController.show);
-routes.put('/island_types/:id', IslandTypesController.update);
-routes.delete('/island_types/:id', IslandTypesController.delete);
+routes.get('/island_types', authMiddleware, IslandTypesController.index);
+routes.post('/island_types', authMiddleware, IslandTypesController.create);
+routes.get('/island_types/:id', authMiddleware, IslandTypesController.show);
+routes.put('/island_types/:id', authMiddleware, IslandTypesController.update);
+routes.delete('/island_types/:id', authMiddleware, IslandTypesController.delete);
 
 // Location routes
-routes.get('/locations', LocationController.index);
-routes.post('/locations', LocationController.create);
-routes.get('/locations/:id', LocationController.show);
-routes.put('/locations/:id', LocationController.update);
-routes.delete('/locations/:id', LocationController.delete);
+routes.get('/locations', authMiddleware, LocationController.index);
+routes.post('/locations', authMiddleware, LocationController.create);
+routes.get('/locations/:id', authMiddleware, LocationController.show);
+routes.put('/locations/:id', authMiddleware, LocationController.update);
+routes.delete('/locations/:id', authMiddleware, LocationController.delete);
 
 // Product routes
-routes.get('/products', ProductController.index);
-routes.post('/products', ProductController.create);
-routes.get('/products/:id', ProductController.show);
-routes.put('/products/:id', ProductController.update);
-routes.delete('/products/:id', ProductController.delete);
+routes.get('/products', authMiddleware, ProductController.index);
+routes.post('/products', authMiddleware, ProductController.create);
+routes.get('/products/:id', authMiddleware, ProductController.show);
+routes.put('/products/:id', authMiddleware, ProductController.update);
+routes.delete('/products/:id', authMiddleware, ProductController.delete);
 
 // User routes
 routes.post('/users', UserController.create)
