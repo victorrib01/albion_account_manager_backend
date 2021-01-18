@@ -22,9 +22,7 @@ export default {
     async index(req: Request, res: Response) {
         const userRepository = getRepository(User);
 
-        const users = await userRepository.find({
-            relations: ['users']
-        })
+        const users = await userRepository.find()
 
         return res.json(users);
     },

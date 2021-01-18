@@ -25,7 +25,7 @@ export default {
         const token = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'})
 
         return res.json({
-            user,
+            email,
             token
         })
     },

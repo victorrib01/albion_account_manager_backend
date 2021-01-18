@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm";
 import Account from "./Account";
 import bcrypt from 'bcryptjs';
 

@@ -19,7 +19,6 @@ const routes = Router()
 
 // Account routes
 routes.get('/accounts', authMiddleware, AccountController.index);
-routes.get('/accounts/:id', authMiddleware, AccountController.show);
 routes.post('/accounts', authMiddleware, AccountController.create);
 routes.put('/accounts/:id', authMiddleware, AccountController.update);
 routes.delete('/accounts/:id', authMiddleware, AccountController.delete);
@@ -91,7 +90,8 @@ routes.delete('/products/:id', authMiddleware, ProductController.delete);
 
 // User routes
 routes.post('/users', UserController.create)
-routes.get('/users', authMiddleware, UserController.getUserId)
+routes.get('/users/id', authMiddleware, UserController.getUserId)
+routes.get('/users', authMiddleware, UserController.index)
 
 // Auth routes
 routes.post('/auth', AuthController.authenticate);
