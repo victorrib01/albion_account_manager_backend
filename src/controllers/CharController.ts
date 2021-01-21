@@ -3,37 +3,29 @@ import Char from '../entity/Char';
 
 import { getRepository } from 'typeorm';
 import Account from '../entity/Account';
+import User from '../entity/User';
 
 export default {
 
-    async show(req: Request, res: Response) {
-        const { id } = req.params;
-        const charsRepository = getRepository(Char);
-
-        const chars = await charsRepository.findOneOrFail(id, {
-            relations: [
-                'island',
-                'account'
-            ]
-        })
-
-        return res.json(chars);
-    },
-
     async index(req: Request, res: Response) {
-        const charsRepository = getRepository(Char);
+        const userId = req.userId;
 
-        const chars = await charsRepository.find({
-            relations: [
-                'island',
-                'account'
-            ]
+        const charsRepository = getRepository(Char);
+       
+        const chars = charsRepository.find({
+            join: { alias: 'chars', innerJoin: { accounts: 'chars.accounts'} },
+            where: qb => {
+                qb.where({
+                    account: userId,
+                })
+            }
         })
 
         return res.json(chars);
     },
 
     async create(req: Request, res: Response) {
+        const userId = parseInt(req.userId);
         const {
             nickname,
             premium,
@@ -46,21 +38,25 @@ export default {
 
         const accountsRepository = getRepository(Account)
 
-        const account = await accountsRepository.findOneOrFail(account_id)
+        const account = await accountsRepository.findOneOrFail(account_id, {relations: ['user']})
 
-        const data = {
-            nickname,
-            premium,
-            first_premium,
-            silver,
-            account
+        if(account.user.id === userId){
+            const data = {
+                nickname,
+                premium,
+                first_premium,
+                silver,
+                account
+            }
+    
+            const char = charsRepository.create(data);
+    
+            await charsRepository.save(char);
+    
+            return res.status(201).json(char);
+        }else{
+            return res.sendStatus(401)
         }
-
-        const char = charsRepository.create(data);
-
-        await charsRepository.save(char);
-
-        return res.status(201).json(char);
     },
 
     async update(req: Request, res: Response){
