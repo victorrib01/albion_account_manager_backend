@@ -33,7 +33,6 @@ routes.delete('/building_types/:id', authMiddleware, BuildingTypeController.dele
 // Char routes
 routes.get('/chars', authMiddleware, CharController.index);
 routes.post('/chars', authMiddleware, CharController.create);
-routes.get('/chars/:id', authMiddleware, CharController.show);
 routes.put('/chars/:id', authMiddleware, CharController.update);
 routes.delete('/chars/:id', authMiddleware, CharController.delete);
 
@@ -89,7 +88,7 @@ routes.put('/products/:id', authMiddleware, ProductController.update);
 routes.delete('/products/:id', authMiddleware, ProductController.delete);
 
 // User routes
-routes.post('/users', UserController.create)
+routes.post('/register', UserController.create)
 routes.get('/users/id', authMiddleware, UserController.getUserId)
 routes.get('/users', authMiddleware, UserController.index)
 
