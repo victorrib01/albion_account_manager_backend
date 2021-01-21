@@ -39,7 +39,7 @@ export default {
         const userExists = await userRepository.findOne({ where: { email } })
 
         if(userExists) {
-            return res.sendStatus(401)
+            return res.status(401).json('user already exists')
         } else{
 
             const data = {
